@@ -77,11 +77,7 @@ details.sig li.dt{color:var(--soft)}
 /* script */
 .sect{margin-bottom:22px}
 .sect h3{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:6px}
-details.fold summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
-details.fold summary::before{content:'▸';font-size:12px;color:var(--soft);transition:transform .15s}
-details.fold[open] summary::before{transform:rotate(90deg)}
-details.fold summary h3{margin-bottom:0;display:inline}
-details.fold[open] summary{margin-bottom:6px}
+.script.small{font-size:14px;padding:10px 14px}
 .script{background:var(--card);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:14px 18px;font-size:17px;line-height:1.65}
 .script.pain{border-left-color:var(--gold);background:var(--pain-bg)}
 .pause{display:inline-block;font-size:12px;color:var(--soft);font-style:italic;margin:6px 0}
@@ -132,15 +128,15 @@ ul.plain li:last-child{border-bottom:none}
   <div class="navrow"><button class="navbtn" id="prevtop"></button><button class="navbtn" id="nexttop"></button></div>
   <details class="sig"><summary>👀 Why this contact — worth a look before you dial</summary><ul id="c-sig"></ul></details>
 
-  <details class="sect fold"><summary><h3>Pattern Interrupt</h3></summary>
-    <div class="script">Hey <b><span id="c-first"></span></b>, this is Dan, did I catch you at a bad time?</div>
+  <div class="sect"><h3>Pattern Interrupt</h3>
+    <div class="script small">Hey <b><span id="c-first"></span></b>, this is Dan, did I catch you at a bad time?</div>
     <span class="pause">(Pause)</span>
-  </details>
+  </div>
 
-  <details class="sect fold"><summary><h3>Permission</h3></summary>
-    <div class="script">Can I take <b>30 seconds</b>… tell you why I called…..<br>you tell me if it makes sense to talk further… <em>fair?</em></div>
+  <div class="sect"><h3>Permission</h3>
+    <div class="script small">Can I take <b>30 seconds</b>… tell you why I called…..<br>you tell me if it makes sense to talk further… <em>fair?</em></div>
     <span class="pause">(Pause)</span>
-  </details>
+  </div>
 
   <div class="sect"><h3>30 Second Commercial</h3>
     <div class="script pain"><b>Bottom line</b>… I'm with Lushin, we're a Sales &amp; Sales Leadership company…<br>
