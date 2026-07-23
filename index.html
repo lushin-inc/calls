@@ -65,11 +65,11 @@ h1.page{font-size:21px;font-weight:600;color:var(--navy);margin:4px 0 18px}
 #themebtn:hover{border-color:var(--blue)}
 #queue{top:70px}
 .tzline{font-size:12px;color:var(--soft);margin-bottom:4px}
-.hslinks{font-size:13px;margin-bottom:6px}
-#c-web{margin-bottom:14px}
-.hslinks a{text-decoration:none}
-.hslinks a:hover{text-decoration:underline}
-.hslinks .sep{color:var(--soft);margin:0 6px}
+.linkbar{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0 16px}
+.lhead{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.lrow{display:flex;gap:18px;flex-wrap:wrap;font-size:14px}
+.lrow a{text-decoration:none}
+.lrow a:hover{text-decoration:underline}
 details.sig{background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:12px;padding:12px 16px;margin:0 0 20px}
 details.sig summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--gold-ink)}
 details.sig ul{margin:8px 0 2px 18px;font-size:13px;color:var(--ink)}
@@ -125,8 +125,10 @@ ul.plain li:last-child{border-bottom:none}
   </div>
   <div class="phoneline" id="c-phones"></div>
   <div class="tzline" id="c-tz"></div>
-  <div class="hslinks" id="c-hs"></div>
-  <div class="hslinks" id="c-web"></div>
+  <div class="linkbar">
+    <div class="lgroup"><div class="lhead">Company</div><div class="lrow" id="l-company"></div></div>
+    <div class="lgroup"><div class="lhead">Contact</div><div class="lrow" id="l-contact"></div></div>
+  </div>
   <div class="navrow"><button class="navbtn" id="prevtop"></button><button class="navbtn" id="nexttop"></button></div>
   <details class="sig"><summary>👀 Why this contact — worth a look before you dial</summary><ul id="c-sig"></ul></details>
 
@@ -231,14 +233,16 @@ function renderContact(id){
   if (c.direct) bits.push('Direct ' + c.direct);
   $('c-phones').textContent = bits.join('  ·  ');
   $('c-tz').textContent = c.tz ? c.tz + ' time' : '';
-  let hs = '<a href="' + HS_PORTAL + '/0-1/' + c.id + '" target="_blank" rel="noopener">' + c.name.split(' ')[0] + ' in HubSpot ↗</a>';
-  if (c.coId) hs += '<span class="sep">·</span><a href="' + HS_PORTAL + '/0-2/' + c.coId + '" target="_blank" rel="noopener">' + c.co + ' in HubSpot ↗</a>';
-  $('c-hs').innerHTML = hs;
-  const webbits = [];
-  if (c.web) webbits.push('<a href="' + c.web + '" target="_blank" rel="noopener">Website ↗</a>');
-  if (c.coli) webbits.push('<a href="' + c.coli + '" target="_blank" rel="noopener">' + c.co + ' LinkedIn ↗</a>');
-  if (c.cli) webbits.push('<a href="' + c.cli + '" target="_blank" rel="noopener">' + c.name.split(' ')[0] + ' LinkedIn ↗</a>');
-  $('c-web').innerHTML = webbits.join('<span class="sep">·</span>');
+  const L = (href, label) => '<a href="' + href + '" target="_blank" rel="noopener">' + label + '</a>';
+  const co_links = [];
+  if (c.web) co_links.push(L(c.web, 'Website'));
+  if (c.coli) co_links.push(L(c.coli, 'LinkedIn'));
+  if (c.coId) co_links.push(L(HS_PORTAL + '/0-2/' + c.coId, 'HubSpot'));
+  $('l-company').innerHTML = co_links.join('');
+  const ct_links = [];
+  if (c.cli) ct_links.push(L(c.cli, 'LinkedIn'));
+  ct_links.push(L(HS_PORTAL + '/0-1/' + c.id, 'HubSpot'));
+  $('l-contact').innerHTML = ct_links.join('');
   const news = (c.news || []).map(n => '<li class="nw">' + n + '</li>').join('');
   $('c-sig').innerHTML = news + c.sig.map(s => '<li class="dt">' + s + '</li>').join('');
   const conn = ['<span class="orr">or……</span>', '<span class="orr">or lastly……</span>', ''];
